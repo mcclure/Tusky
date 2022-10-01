@@ -19,8 +19,13 @@ import android.app.Activity
 import android.content.DialogInterface
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.util.TypedValue
+import android.view.Gravity
+import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.LifecycleOwner
@@ -34,6 +39,7 @@ import com.bumptech.glide.request.target.Target
 import com.keylesspalace.tusky.R
 import com.keylesspalace.tusky.databinding.DialogFocusBinding
 import com.keylesspalace.tusky.entity.Attachment.Focus
+import kotlin.math.round
 import kotlinx.coroutines.launch
 
 fun <T> T.makeFocusDialog(
@@ -86,8 +92,26 @@ fun <T> T.makeFocusDialog(
         dialog.dismiss()
     }
 
+    val dialogLayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+    dialogLayoutParams.setMargins(0, 0, 0, 0)
+
+    val dialogLayout = LinearLayout(this)
+    dialogLayout.layoutParams = dialogLayoutParams
+    dialogLayout.orientation = LinearLayout.VERTICAL
+
+    val explanation = TextView(this)
+    explanation.text = getString(R.string.set_focus_description)
+    explanation.gravity = Gravity.CENTER
+    explanation.setTextSize(TypedValue.COMPLEX_UNIT_SP,18.0f)
+    val scale = resources.displayMetrics.density
+    val padding = round(24*scale).toInt()
+    explanation.setPadding( padding, padding, padding, padding )
+
+    dialogLayout.addView(explanation)
+    dialogLayout.addView(dialogBinding.root)
+
     val dialog = AlertDialog.Builder(this)
-        .setView(dialogBinding.root)
+        .setView(dialogLayout)
         .setPositiveButton(android.R.string.ok, okListener)
         .setNegativeButton(android.R.string.cancel, null)
         .create()
