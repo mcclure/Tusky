@@ -39,8 +39,8 @@ import com.bumptech.glide.request.target.Target
 import com.keylesspalace.tusky.R
 import com.keylesspalace.tusky.databinding.DialogFocusBinding
 import com.keylesspalace.tusky.entity.Attachment.Focus
-import kotlin.math.round
 import kotlinx.coroutines.launch
+import kotlin.math.round
 
 fun <T> T.makeFocusDialog(
     existingFocus: Focus?,
@@ -93,7 +93,7 @@ fun <T> T.makeFocusDialog(
     }
 
     val dialogLayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-    dialogLayoutParams.setMargins(0, 0, 0, 0)
+    dialogLayoutParams.setMargins(0, 0, 0, 0) // Remove margins so focus indicator view can touch edges
 
     val dialogLayout = LinearLayout(this)
     dialogLayout.layoutParams = dialogLayoutParams
@@ -102,10 +102,10 @@ fun <T> T.makeFocusDialog(
     val explanation = TextView(this)
     explanation.text = getString(R.string.set_focus_description)
     explanation.gravity = Gravity.CENTER
-    explanation.setTextSize(TypedValue.COMPLEX_UNIT_SP,18.0f)
+    explanation.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18.0f)
     val scale = resources.displayMetrics.density
-    val padding = round(24*scale).toInt()
-    explanation.setPadding( padding, padding, padding, padding )
+    val padding = round(24.0f * scale).toInt()
+    explanation.setPadding(padding, padding, padding, padding) // Re-insert margins we just removed
 
     dialogLayout.addView(explanation)
     dialogLayout.addView(dialogBinding.root)
