@@ -98,6 +98,7 @@ android {
 }
 
 // library versions are in PROJECT_ROOT/gradle/libs.versions.toml
+def mediaVersion = "1.0.0-alpha03"
 dependencies {
     implementation libs.kotlinx.coroutines.android
     implementation libs.kotlinx.coroutines.rx3
@@ -144,6 +145,10 @@ dependencies {
 
     implementation libs.bouncycastle
     implementation libs.unified.push
+
+    implementation "androidx.media3:media3-exoplayer:$mediaVersion"
+    implementation "androidx.media3:media3-ui:$mediaVersion"
+    implementation "androidx.media3:media3-exoplayer-dash:$mediaVersion"
 
     testImplementation libs.androidx.test.junit
     testImplementation libs.robolectric
