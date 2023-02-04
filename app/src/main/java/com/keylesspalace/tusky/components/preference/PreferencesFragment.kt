@@ -101,6 +101,7 @@ class PreferencesFragment : PreferenceFragmentCompat(), Injectable {
                 }
 
                 sliderPreference {
+                    android.util.Log.d("Slider oddity", "In UI_TEXT_SCALE_RATIO slider construct")
                     key = PrefKeys.UI_TEXT_SCALE_RATIO
                     setDefaultValue(100F)
                     valueTo = 150F
@@ -248,6 +249,20 @@ class PreferencesFragment : PreferenceFragmentCompat(), Injectable {
                     key = PrefKeys.SHOW_STATS_INLINE
                     setTitle(R.string.pref_title_show_stat_inline)
                     isSingleLineTitle = false
+                }
+
+                sliderPreference {
+                    android.util.Log.d("Slider oddity", "In DECREASE_SWIPE_SENSITIVITY slider construct")
+                    setDefaultValue(-4.0f) // Comes out to "default/2"
+                    key = PrefKeys.DECREASE_SWIPE_SENSITIVITY
+                    setTitle(R.string.pref_title_decrease_swipe_sensitivity)
+                    valueFrom = -8.0f
+                    valueTo = 0.0f
+                    stepSize = 1.0f
+                    // Must duplicate ViewPager2.reduceSwipeSensitivity()
+                    formatter = { metric:Float ->
+                        "%d%%".format((100.0f/(1.0f - metric / 4.0f)).toInt())
+                    }
                 }
             }
 
