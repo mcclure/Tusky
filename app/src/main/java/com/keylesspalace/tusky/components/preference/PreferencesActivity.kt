@@ -151,7 +151,7 @@ class PreferencesActivity :
             }
             "statusTextSize", "absoluteTimeView", "showBotOverlay", "animateGifAvatars", "useBlurhash",
             "showDescriptionBadge", "showSelfUsername", "showCardsInTimelines", "confirmReblogs",
-            "confirmFavourites", "enableSwipeForTabs", "mainNavPosition", PrefKeys.HIDE_TOP_TOOLBAR -> {
+            "confirmFavourites", "enableSwipeForTabs", "decreaseSwipeSensitivity", "mainNavPosition", PrefKeys.HIDE_TOP_TOOLBAR -> {
                 restartActivitiesOnBackPressedCallback.isEnabled = true
             }
         }

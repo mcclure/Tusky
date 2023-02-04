@@ -13,6 +13,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceScreen
+import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreference
 import de.c1710.filemojicompat_ui.views.picker.preference.EmojiPickerPreference
 
@@ -38,6 +39,15 @@ inline fun PreferenceParent.listPreference(builder: ListPreference.() -> Unit): 
 inline fun <A> PreferenceParent.emojiPreference(activity: A, builder: EmojiPickerPreference.() -> Unit): EmojiPickerPreference
     where A : Context, A : ActivityResultRegistryOwner, A : LifecycleOwner {
     val pref = EmojiPickerPreference.get(activity)
+    builder(pref)
+    addPref(pref)
+    return pref
+}
+
+inline fun PreferenceParent.seekBarPreference(
+    builder: SeekBarPreference.() -> Unit
+): SeekBarPreference {
+    val pref = SeekBarPreference(context)
     builder(pref)
     addPref(pref)
     return pref

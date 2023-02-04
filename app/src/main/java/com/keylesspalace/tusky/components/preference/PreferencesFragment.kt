@@ -29,6 +29,7 @@ import com.keylesspalace.tusky.settings.listPreference
 import com.keylesspalace.tusky.settings.makePreferenceScreen
 import com.keylesspalace.tusky.settings.preference
 import com.keylesspalace.tusky.settings.preferenceCategory
+import com.keylesspalace.tusky.settings.seekBarPreference
 import com.keylesspalace.tusky.settings.switchPreference
 import com.keylesspalace.tusky.util.LocaleManager
 import com.keylesspalace.tusky.util.deserialize
@@ -226,6 +227,15 @@ class PreferencesFragment : PreferenceFragmentCompat(), Injectable {
                     key = PrefKeys.ENABLE_SWIPE_FOR_TABS
                     setTitle(R.string.pref_title_enable_swipe_for_tabs)
                     isSingleLineTitle = false
+                }
+
+                seekBarPreference {
+                    setDefaultValue(-4) // Comes out to "default/2"
+                    key = PrefKeys.DECREASE_SWIPE_SENSITIVITY
+                    setTitle(R.string.pref_title_decrease_swipe_sensitivity)
+                    setMin(-8)
+                    setMax(0)
+                    setShowSeekBarValue(true)
                 }
             }
 

@@ -239,7 +239,7 @@ class AccountActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidI
         // Setup the tabs and timeline pager.
         adapter = AccountPagerAdapter(this, viewModel.accountId)
 
-        binding.accountFragmentViewPager.reduceSwipeSensitivity()
+        binding.accountFragmentViewPager.reduceSwipeSensitivity(preferences.getInt(PrefKeys.DECREASE_SWIPE_SENSITIVITY, -4))
         binding.accountFragmentViewPager.adapter = adapter
         binding.accountFragmentViewPager.offscreenPageLimit = 2
 

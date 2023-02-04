@@ -258,7 +258,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
             }
         }
 
-        binding.viewPager.reduceSwipeSensitivity()
+        binding.viewPager.reduceSwipeSensitivity(preferences.getInt(PrefKeys.DECREASE_SWIPE_SENSITIVITY, -4))
 
         setupDrawer(savedInstanceState, addSearchButton = hideTopToolbar)
 
