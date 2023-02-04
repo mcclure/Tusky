@@ -32,6 +32,8 @@ data class StatusDisplayOptions(
     val showBotOverlay: Boolean,
     @get:JvmName("useBlurhash")
     val useBlurhash: Boolean,
+    @get:JvmName("showDescriptionBadge")
+    val showDescriptionBadge: Boolean,
     @get:JvmName("cardViewMode")
     val cardViewMode: CardViewMode,
     @get:JvmName("confirmReblogs")
@@ -117,6 +119,7 @@ data class StatusDisplayOptions(
             useAbsoluteTime = preferences.getBoolean(PrefKeys.ABSOLUTE_TIME_VIEW, false),
             showBotOverlay = preferences.getBoolean(PrefKeys.SHOW_BOT_OVERLAY, true),
             useBlurhash = preferences.getBoolean(PrefKeys.USE_BLURHASH, true),
+            showDescriptionBadge = preferences.getBoolean(PrefKeys.SHOW_DESCRIPTION_BADGE, true),
             cardViewMode = CardViewMode.NONE,
             confirmReblogs = preferences.getBoolean(PrefKeys.CONFIRM_REBLOGS, true),
             confirmFavourites = preferences.getBoolean(PrefKeys.CONFIRM_FAVOURITES, false),
