@@ -31,6 +31,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.MediaController
 import androidx.core.view.GestureDetectorCompat
+import androidx.media3.exoplayer.ExoPlayer
 import com.keylesspalace.tusky.ViewMediaActivity
 import com.keylesspalace.tusky.databinding.FragmentViewVideoBinding
 import com.keylesspalace.tusky.entity.Attachment
@@ -123,6 +124,11 @@ class ViewVideoFragment : ViewMediaFragment() {
             }
         }
 
+        ExoPlayer.Builder(requireContext())
+            .build()
+            .also { exoPlayer ->
+                //binding.videoView.player = exoPlayer
+            }
         mediaController.setMediaPlayer(binding.videoView)
         binding.videoView.setMediaController(mediaController)
         binding.videoView.requestFocus()
