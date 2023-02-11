@@ -9,7 +9,7 @@ plugins {
 def getGitSha = {
     try {
         providers.exec {
-            commandLine 'git', 'rev-parse', 'HEAD'
+            commandLine 'gggiiittt', 'rev-parse', 'HEAD' // Intentionally typo the name of git to demonstrate Gradle bug
         }.standardOutput.asText.get().trim()
     } catch (Throwable e) {
         "unknown" // Try-catch is necessary for build to work on non-git distributions
