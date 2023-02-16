@@ -31,6 +31,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.MediaController
 import androidx.core.view.GestureDetectorCompat
+import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
 import com.keylesspalace.tusky.ViewMediaActivity
 import com.keylesspalace.tusky.databinding.FragmentViewVideoBinding
@@ -74,7 +75,7 @@ class ViewVideoFragment : ViewMediaFragment() {
             if (mediaActivity.isToolbarVisible) {
                 handler.postDelayed(hideToolbar, TOOLBAR_HIDE_DELAY_MS)
             }
-            binding.videoView.start()
+            binding.videoView.player?.play()
         }
     }
 
@@ -83,7 +84,7 @@ class ViewVideoFragment : ViewMediaFragment() {
 
         if (_binding != null) {
             handler.removeCallbacks(hideToolbar)
-            binding.videoView.pause()
+            binding.videoView.player?.pause()
             mediaController.hide()
         }
     }
@@ -103,7 +104,19 @@ class ViewVideoFragment : ViewMediaFragment() {
         binding.mediaDescription.elevation = binding.videoView.elevation + 1
 
         binding.videoView.transitionName = url
-        binding.videoView.setVideoPath(url)
+
+        val exoPlayer = ExoPlayer.Builder(requireContext())
+        .build()
+        .also { exoPlayer ->
+            binding.videoView.player = exoPlayer
+        }
+
+        val mediaItem = MediaItem.fromUri(url)
+        exoPlayer.setMediaItem(mediaItem)
+        //exoPlayer.playWhenReady = playWhenReady
+        //exoPlayer.seekTo(currentItem, playbackPosition)
+        exoPlayer.prepare()
+
         mediaController = object : MediaController(mediaActivity) {
             override fun show(timeout: Int) {
                 // We're doing manual auto-close management.
@@ -124,11 +137,6 @@ class ViewVideoFragment : ViewMediaFragment() {
             }
         }
 
-        ExoPlayer.Builder(requireContext())
-            .build()
-            .also { exoPlayer ->
-                //binding.videoView.player = exoPlayer
-            }
         mediaController.setMediaPlayer(binding.videoView)
         binding.videoView.setMediaController(mediaController)
         binding.videoView.requestFocus()
