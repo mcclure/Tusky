@@ -121,6 +121,8 @@ class ViewVideoFragment : ViewMediaFragment() {
             override fun onEvents(player: Player, events: Player.Events) {
                 if (events.contains(Player.EVENT_PLAYBACK_STATE_CHANGED)) {
                     if (player.getPlaybackState() == Player.STATE_READY) {
+/*
+                        // FIXME This causes the controls bar to move up. Why is it here?
                         // Prepared (FIXME: Only fire this once?)
                         val containerWidth = binding.videoContainer.measuredWidth.toFloat()
                         val containerHeight = binding.videoContainer.measuredHeight.toFloat()
@@ -138,7 +140,7 @@ class ViewVideoFragment : ViewMediaFragment() {
                             binding.videoView.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
                             binding.videoView.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
                         }
-
+*/
                         // Wait until the media is loaded before accepting taps as we don't want toolbar to
                         // be hidden until then.
                         binding.videoView.setOnTouchListener { _, _ ->
@@ -147,6 +149,8 @@ class ViewVideoFragment : ViewMediaFragment() {
                         }
 
                         binding.progressBar.hide()
+                        binding.videoView.setUseController(true)
+                        binding.videoView.showController()
                         player.setRepeatMode(Player.REPEAT_MODE_ONE) // FIXME what is this in player?
                     }
                 }
