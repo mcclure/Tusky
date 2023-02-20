@@ -147,7 +147,7 @@ class ViewVideoFragment : ViewMediaFragment() {
                         }
 
                         binding.progressBar.hide()
-                        //mp.isLooping = true // FIXME what is this in player?
+                        player.setRepeatMode(Player.REPEAT_MODE_ONE) // FIXME what is this in player?
                     }
                 }
 
