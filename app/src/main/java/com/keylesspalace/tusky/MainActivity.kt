@@ -96,6 +96,7 @@ import com.keylesspalace.tusky.util.getDimension
 import com.keylesspalace.tusky.util.hide
 import com.keylesspalace.tusky.util.reduceSwipeSensitivity
 import com.keylesspalace.tusky.util.show
+import com.keylesspalace.tusky.util.unsafeLazy
 import com.keylesspalace.tusky.util.updateShortcut
 import com.keylesspalace.tusky.util.viewBinding
 import com.keylesspalace.tusky.util.visible
@@ -162,7 +163,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
 
     private var unreadAnnouncementsCount = 0
 
-    private val preferences by lazy { PreferenceManager.getDefaultSharedPreferences(this) }
+    private val preferences by unsafeLazy { PreferenceManager.getDefaultSharedPreferences(this) }
 
     private lateinit var glide: RequestManager
 
@@ -697,7 +698,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
             tab: TabLayout.Tab, position: Int ->
             tab.icon = AppCompatResources.getDrawable(this@MainActivity, tabs[position].icon)
             tab.contentDescription = when (tabs[position].id) {
-                LIST -> tabs[position].arguments[position]
+                LIST -> tabs[position].arguments[1]
                 else -> getString(tabs[position].text)
             }
         }.also { it.attach() }
