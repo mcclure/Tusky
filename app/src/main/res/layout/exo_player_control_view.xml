@@ -23,7 +23,7 @@
     <View android:id="@id/exo_controls_background"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/exo_black_opacity_60"/>
+        android:background="@android:color/transparent"/>
 
     <FrameLayout android:id="@id/exo_bottom_bar"
         android:layout_width="match_parent"
