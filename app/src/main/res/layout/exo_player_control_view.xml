@@ -20,6 +20,7 @@
          entirety of the parent in code, after the parent's size has been
          determined. See: https://github.com/google/ExoPlayer/issues/8726.
     -->
+    <!-- Change from media3: Make transparent -->
     <View android:id="@id/exo_controls_background"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -123,6 +124,7 @@
 
     </LinearLayout>
 
+    <!-- Change from media3: layout gravity sends to bottom, with extra bottom margin to clear scrub bar -->
     <LinearLayout
         android:id="@id/exo_center_controls"
         android:layout_width="wrap_content"
