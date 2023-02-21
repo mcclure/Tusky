@@ -24,7 +24,6 @@ import android.os.Handler
 import android.os.Looper
 import android.text.method.ScrollingMovementMethod
 import android.view.GestureDetector
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -38,7 +37,6 @@ import com.keylesspalace.tusky.databinding.FragmentViewVideoBinding
 import com.keylesspalace.tusky.entity.Attachment
 import com.keylesspalace.tusky.util.hide
 import com.keylesspalace.tusky.util.visible
-import com.keylesspalace.tusky.view.ExposedPlayPauseVideoView
 import kotlin.math.abs
 
 class ViewVideoFragment : ViewMediaFragment() {
@@ -56,7 +54,7 @@ class ViewVideoFragment : ViewMediaFragment() {
         // Hoist toolbar hiding to activity so it can track state across different fragments
         // This is explicitly stored as runnable so that we pass it to the handler later for cancellation
         mediaActivity.onPhotoTap()
-        //mediaController.hide() // FIXME
+        // mediaController.hide() // FIXME
     }
     private lateinit var mediaActivity: ViewMediaActivity
     private lateinit var mediaPlayerListener: Player.Listener
@@ -88,7 +86,7 @@ class ViewVideoFragment : ViewMediaFragment() {
         if (_binding != null) {
             handler.removeCallbacks(hideToolbar)
             binding.videoView.player?.pause()
-            //mediaController.hide()
+            // mediaController.hide()
         }
     }
 
@@ -109,15 +107,15 @@ class ViewVideoFragment : ViewMediaFragment() {
         binding.videoView.transitionName = url
 
         val player = ExoPlayer.Builder(requireContext())
-        .build()
-        .also { exoPlayer ->
-            binding.videoView.player = exoPlayer
-        }
+            .build()
+            .also { exoPlayer ->
+                binding.videoView.player = exoPlayer
+            }
 
         val mediaItem = MediaItem.fromUri(url)
         player.setMediaItem(mediaItem)
-        //player.playWhenReady = playWhenReady
-        //player.seekTo(currentItem, playbackPosition)
+        // player.playWhenReady = playWhenReady
+        // player.seekTo(currentItem, playbackPosition)
         player.prepare()
 
         mediaPlayerListener = object : Player.Listener {
@@ -157,7 +155,6 @@ class ViewVideoFragment : ViewMediaFragment() {
                         player.setRepeatMode(Player.REPEAT_MODE_ONE) // FIXME what is this in player?
                     }
                 }
-
             }
             /*
             override fun show(timeout: Int) {
