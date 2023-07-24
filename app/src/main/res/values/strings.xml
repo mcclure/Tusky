@@ -311,7 +311,7 @@
     <string name="pref_title_post_filter">Timeline filtering</string>
     <string name="pref_title_post_tabs">Tabs</string>
     <string name="pref_title_post_cw_auto">CWs</string>
-    <string name="pref_title_cw_auto_prelude">The options below are lists of words. The action will be taken on a CW if ALL words in the CW are in the list. Everything in list 2 is implicitly in list 1.</string>
+    <string name="pref_title_cw_auto_prelude">The options below are lists of words. The filter will apply to a CW if ALL words in the CW are in the filter list. Everything in list 2 is implicitly in list 1.</string>
     <string name="pref_title_cw_auto_1">Hide CW completely</string>
     <string name="pref_title_cw_auto_2">Auto expand CW</string>
     <string name="pref_title_cw_auto_tap_here">Tap here</string>

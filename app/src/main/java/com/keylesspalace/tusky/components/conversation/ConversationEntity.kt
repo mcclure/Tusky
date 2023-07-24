@@ -44,6 +44,7 @@ data class ConversationEntity(
 ) {
 
     fun toViewData(cwFilters: CwFilters): ConversationViewData {
+        android.util.Log.d("CwFilters", "HERE HERE HERE HERE HERE 1")
         return ConversationViewData(
             id = id,
             order = order,
@@ -106,7 +107,7 @@ data class ConversationStatusEntity(
     fun toViewData(cwFilters: CwFilters): StatusViewData.Concrete {
         val contentForceSpoilerless: Boolean
         val contentForceSpoilerExpand: Boolean
-
+        android.util.Log.d("CwFilters", "SPOILERTEXT? '$spoilerText'")
         if (spoilerText.isEmpty()) {
             contentForceSpoilerExpand = false
             contentForceSpoilerless = false

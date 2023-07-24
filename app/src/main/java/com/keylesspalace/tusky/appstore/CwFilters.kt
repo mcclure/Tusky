@@ -61,10 +61,12 @@ class CwFilters @Inject constructor() {
             return anti    // So we know ahead of time we should not do it (regular case) or do it (anti case)
 
         val seq = tokenize(target)
-
+        android.util.Log.d("CwFilters", "Set " + set.toString())
         // Search for the first instance of a nonmatching (or, for anti, matching) word
         for (word in seq) {
             val contains = set.contains(word);
+
+            android.util.Log.d("CwFilters", "Contains? '$word': $contains")
             if (contains == anti) // Condition met: nonmatching (regular case) or matching (anti case)
                 return anti // Return "don't do it" (regular case) or "do it" (anti case)
         }
