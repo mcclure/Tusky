@@ -677,7 +677,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public static final Migration MIGRATION_51_52 = new Migration(51, 52) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-            database.execSQL("ALTER TABLE `AccountEntity` RENAME COLUMN `notificationFilter` TO `notificationFilters`");
+            database.execSQL("ALTER TABLE `AccountEntity` RENAME COLUMN `notificationsFilter` TO `notificationsFilters`");
             database.execSQL("ALTER TABLE `AccountEntity` ADD COLUMN `notificationsFilterIndex` INTEGER NOT NULL DEFAULT 0");
         }
     };
