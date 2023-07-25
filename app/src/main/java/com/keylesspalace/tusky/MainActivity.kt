@@ -261,6 +261,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
 
         addMenuProvider(this)
 
+        try { preferences.getFloat(PrefKeys.DECREASE_SWIPE_SENSITIVITY, -4.0f) } // Oops! AndiHacks v21 stored an int here because we didn't have sliderPreference.
+        catch (e:ClassCastException) { preferences.edit().putFloat(PrefKeys.DECREASE_SWIPE_SENSITIVITY, preferences.getInt(PrefKeys.DECREASE_SWIPE_SENSITIVITY, -4).toFloat()).commit() }
         binding.viewPager.reduceSwipeSensitivity(Math.round(preferences.getFloat(PrefKeys.DECREASE_SWIPE_SENSITIVITY, -4.0f)).toInt())
 
         setupDrawer(
