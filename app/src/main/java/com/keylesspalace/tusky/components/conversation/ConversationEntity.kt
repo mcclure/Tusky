@@ -18,6 +18,8 @@ package com.keylesspalace.tusky.components.conversation
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.TypeConverters
+import com.keylesspalace.tusky.appstore.CwFilterKeys
+import com.keylesspalace.tusky.appstore.CwFilters
 import com.keylesspalace.tusky.db.Converters
 import com.keylesspalace.tusky.entity.Attachment
 import com.keylesspalace.tusky.entity.Conversation
@@ -28,6 +30,7 @@ import com.keylesspalace.tusky.entity.Status
 import com.keylesspalace.tusky.entity.TimelineAccount
 import com.keylesspalace.tusky.viewdata.StatusViewData
 import java.util.Date
+import javax.inject.Inject
 
 @Entity(primaryKeys = ["id", "accountId"])
 @TypeConverters(Converters::class)
@@ -39,13 +42,14 @@ data class ConversationEntity(
     val unread: Boolean,
     @Embedded(prefix = "s_") val lastStatus: ConversationStatusEntity
 ) {
-    fun toViewData(): ConversationViewData {
+
+    fun toViewData(cwFilters: CwFilters): ConversationViewData {
         return ConversationViewData(
             id = id,
             order = order,
             accounts = accounts,
             unread = unread,
-            lastStatus = lastStatus.toViewData()
+            lastStatus = lastStatus.toViewData(cwFilters)
         )
     }
 }
@@ -99,8 +103,18 @@ data class ConversationStatusEntity(
     val poll: Poll?,
     val language: String?
 ) {
+    fun toViewData(cwFilters: CwFilters): StatusViewData.Concrete {
+        val contentForceSpoilerless: Boolean
+        val contentForceSpoilerExpand: Boolean
 
-    fun toViewData(): StatusViewData.Concrete {
+        if (spoilerText.isEmpty()) {
+            contentForceSpoilerExpand = false
+            contentForceSpoilerless = false
+        } else {
+            contentForceSpoilerless = cwFilters.should(CwFilterKeys.ERASE, this.spoilerText)
+            contentForceSpoilerExpand = cwFilters.should(CwFilterKeys.EXPAND, this.spoilerText)
+        }
+
         return StatusViewData.Concrete(
             status = Status(
                 id = id,
@@ -120,7 +134,7 @@ data class ConversationStatusEntity(
                 favourited = favourited,
                 bookmarked = bookmarked,
                 sensitive = sensitive,
-                spoilerText = spoilerText,
+                spoilerText = if (!contentForceSpoilerless) { spoilerText } else { "" },
                 visibility = Status.Visibility.DIRECT,
                 attachments = attachments,
                 mentions = mentions,
@@ -134,7 +148,7 @@ data class ConversationStatusEntity(
                 filtered = null
             ),
             isExpanded = expanded,
-            isShowingContent = showingHiddenContent,
+            isShowingContent = contentForceSpoilerExpand || showingHiddenContent,
             isCollapsed = collapsed
         )
     }

@@ -60,6 +60,7 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
 import com.keylesspalace.tusky.appstore.AnnouncementReadEvent
 import com.keylesspalace.tusky.appstore.CacheUpdater
+import com.keylesspalace.tusky.appstore.CwFilters
 import com.keylesspalace.tusky.appstore.EventHub
 import com.keylesspalace.tusky.appstore.MainTabsChangedEvent
 import com.keylesspalace.tusky.appstore.ProfileEditedEvent
@@ -150,6 +151,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
 
     @Inject
     lateinit var draftsAlert: DraftsAlert
+
+    @Inject
+    lateinit var cwFilters: CwFilters
 
     @Inject
     lateinit var developerToolsUseCase: DeveloperToolsUseCase
@@ -256,6 +260,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
 
         val hideTopToolbar = preferences.getBoolean(PrefKeys.HIDE_TOP_TOOLBAR, false)
         binding.mainToolbar.visible(!hideTopToolbar)
+
+        cwFilters.reset(preferences.getString(PrefKeys.CW_AUTO_ERASE_WORDS, "") ?: "", preferences.getString(PrefKeys.CW_AUTO_EXPAND_WORDS, "") ?: "")
 
         loadDrawerAvatar(activeAccount.profilePictureUrl, true)
 
