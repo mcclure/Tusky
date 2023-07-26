@@ -24,6 +24,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.map
 import at.connyduck.calladapter.networkresult.fold
+import com.keylesspalace.tusky.appstore.CwFilters
 import com.keylesspalace.tusky.db.AccountManager
 import com.keylesspalace.tusky.db.AppDatabase
 import com.keylesspalace.tusky.network.MastodonApi
@@ -37,7 +38,8 @@ class ConversationsViewModel @Inject constructor(
     private val timelineCases: TimelineCases,
     private val database: AppDatabase,
     private val accountManager: AccountManager,
-    private val api: MastodonApi
+    private val api: MastodonApi,
+    private val cwFilters: CwFilters
 ) : ViewModel() {
 
     @OptIn(ExperimentalPagingApi::class)
@@ -55,7 +57,7 @@ class ConversationsViewModel @Inject constructor(
     )
         .flow
         .map { pagingData ->
-            pagingData.map { conversation -> conversation.toViewData() }
+            pagingData.map { conversation -> conversation.toViewData(cwFilters) }
         }
         .cachedIn(viewModelScope)
 

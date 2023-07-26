@@ -258,6 +258,10 @@ class PreferencesFragment : PreferenceFragmentCompat(), Injectable {
                     setTitle(R.string.pref_title_post_tabs)
                     fragment = TabFilterPreferencesFragment::class.qualifiedName
                 }
+                preference {
+                    setTitle(R.string.pref_title_post_cw_auto)
+                    fragment = CwAutoPreferencesFragment::class.qualifiedName
+                }
             }
 
             preferenceCategory(R.string.pref_title_wellbeing_mode) {

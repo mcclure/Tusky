@@ -157,6 +157,7 @@ class PreferencesActivity :
                 restartActivitiesOnBackPressedCallback.isEnabled = true
                 this.restartCurrentActivity()
             }
+            PrefKeys.CW_AUTO_ERASE_WORDS, PrefKeys.CW_AUTO_EXPAND_WORDS,
             "statusTextSize", "absoluteTimeView", "showBotOverlay", "animateGifAvatars", "useBlurhash",
             "showSelfUsername", "showCardsInTimelines", "confirmReblogs", "confirmFavourites",
             "enableSwipeForTabs", "mainNavPosition", PrefKeys.HIDE_TOP_TOOLBAR, PrefKeys.SHOW_STATS_INLINE -> {
