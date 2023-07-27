@@ -96,13 +96,6 @@ class FollowViewHolder(
             avatarRadius42dp,
             animateAvatars
         )
-
-        val emojifiedNote = account.note.parseAsMastodonHtml().emojify(
-            account.emojis,
-            binding.notificationAccountNote,
-            animateEmojis
-        )
-        setClickableText(binding.notificationAccountNote, emojifiedNote, emptyList(), null, linkListener)
     }
 
     private fun setupButtons(listener: NotificationActionListener, accountId: String) {
